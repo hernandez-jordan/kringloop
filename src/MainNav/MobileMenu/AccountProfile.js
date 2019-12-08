@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import { makeStyles, Grid, Button, ButtonGroup, Popper, TextField, Link, ClickAwayListener} from '@material-ui/core';
-import AccountBoxIcon from '@material-ui/icons/AccountBox';
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import LanguageIcon from '@material-ui/icons/Language';
+import { makeStyles, Grid, Button, ButtonGroup, TextField, Link, Popover} from '@material-ui/core';
 import FacebookIcon from '@material-ui/icons/Facebook';
-
+import {
+    bindPopover,
+  } from 'material-ui-popup-state/hooks'
 
 const useStyles = makeStyles(theme => ({
     paragraphStyles : {
@@ -30,8 +29,8 @@ const useStyles = makeStyles(theme => ({
       },
     popperMenu : {
         '&:not(:first-child)' :{
-            zIndex:1200,
-            backgroundColor : 'white',
+            // zIndex:1200,
+            // backgroundColor : 'white',
             boxShadow: '0px 2px 6px #ababab',
             textAlign: 'center',
             fontFamily: 'Oswald',
@@ -67,87 +66,45 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const AccountProfile = () => {
+const AccountProfile = props => {
     const classes =  useStyles();
-    const [anchorEl, setAnchorEl] = useState(null);
+    const {popupState } = props;
     const preventDefault = event => event.preventDefault();
     
-    const users = 'users';
-    const popperOpen = Boolean(anchorEl);
-    const id = popperOpen ? 'simple-popper' : undefined;
-   
-    const handleClick = event => {
-        setAnchorEl(anchorEl ? null : event.currentTarget);
-        // setOpen(!open);
-      };
-
-    const handleClickAway = event => {
-        // setOpen(false);
-        //setAnchorEl(null);
-        //console.log(event.target)
-    };
-
     return(
-        <ClickAwayListener onClickAway={handleClickAway}>
-            <div>
-                <Grid container spacing={3}>
-                    <Grid item>
-                        <ButtonGroup 
-                            variant="text" 
-                            aria-label="full-width contained button group"
+            <Popover className={classes.popperMenu}
+            {...bindPopover(popupState)} 
+
+                anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'center',
+                    }}
+                    transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'center',
+                    }}
+                >
+                    <h3 >Sign in</h3>
+                    <form className={classes.form} noValidate autoComplete="off">
+                            <TextField className={classes.textField} label="Username" variant="outlined" /> <br/>
+                            <TextField className={classes.textField} label="Password" variant="outlined" type="password" />
+                            <br/>
+                            <Button className={classes.button} variant="contained">Sign In</Button> <br/>
+                            <Link href="#" onClick={preventDefault}>
+                                <b>Forgot</b> Password or Username?
+                            </Link>
+                            <br/>
+                            <br/>
+                            <p className={classes.paragraphStyles}>or <b>sign in</b> with</p>
+                            <Button
+                                variant="contained"
+                                className={classes.button}
+                                startIcon={<FacebookIcon />}
                             >
-                                <Button 
-                                    startIcon={<ShoppingCartIcon />} 
-                                    classes={{root : classes.groupedText}} 
-                                    >Cart
-                                </Button>
-                            
-                                <Button
-                                    aria-describedby={id} 
-                                    type="button" 
-                                    onClick={handleClick}
-                                    startIcon={<AccountBoxIcon />} 
-                                    classes={{root : classes.groupedText}}
-                                    id={users}
-                                    >User
-                                </Button>
-                                <Button 
-                                    startIcon={<LanguageIcon />} 
-                                    classes={{root : classes.groupedText}}
-                                    >ENG
-                                </Button>
-                        </ButtonGroup>
-                    
-                                {Boolean(anchorEl) ? (
-                                <Popper className={classes.popperMenu} 
-                                    id={id} open={Boolean(anchorEl)} 
-                                    anchorEl={anchorEl}>
-                                        <h3 >Sign in</h3>
-                                        <form className={classes.form} noValidate autoComplete="off">
-                                                <TextField className={classes.textField} label="Username" variant="outlined" /> <br/>
-                                                <TextField className={classes.textField} label="Password" variant="outlined" type="password" />
-                                                <br/>
-                                                <Button className={classes.button} variant="contained">Sign In</Button> <br/>
-                                                <Link href="#" onClick={preventDefault}>
-                                                    <b>Forgot</b> Password or Username?
-                                                </Link>
-                                                <br/>
-                                                <br/>
-                                                <p className={classes.paragraphStyles}>or <b>sign in</b> with</p>
-                                                <Button
-                                                    variant="contained"
-                                                    className={classes.button}
-                                                    startIcon={<FacebookIcon />}
-                                                >
-                                                    Facebook
-                                                </Button>
-                                        </form>
-                                </Popper>
-                                ) : null}
-                    </Grid>
-                </Grid>
-            </div>
-        </ClickAwayListener>
+                                Facebook
+                            </Button>
+                    </form>
+            </Popover>
     );
 }
 export default AccountProfile;

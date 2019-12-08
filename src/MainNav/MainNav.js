@@ -1,9 +1,13 @@
 import React from 'react';
-import { AppBar, Toolbar,Typography, Container, makeStyles, Link} from '@material-ui/core';
+import { AppBar, Toolbar,Typography, Container, makeStyles, Link, Grid, ButtonGroup, Button} from '@material-ui/core';
 import AccountProfile from '../MainNav/MobileMenu/AccountProfile';
-
-
-
+import {
+  usePopupState,
+  bindTrigger,
+} from 'material-ui-popup-state/hooks'
+import AccountBoxIcon from '@material-ui/icons/AccountBox';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import LanguageIcon from '@material-ui/icons/Language';
 
 const useStyles = makeStyles(theme => ({
   paperRoot: {
@@ -52,11 +56,13 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-
 const MainNavBar = () => {
   const classes = useStyles();
 
-
+  const popupState = usePopupState({
+    variant: 'popover',
+    popupId: 'userPopover',
+  })
 
   return ( 
     <div className={classes.grow}>
@@ -75,8 +81,34 @@ const MainNavBar = () => {
                     </Link>
                   </Typography>
                   
-                  <AccountProfile />
-                  
+                  <AccountProfile popupState={popupState}/>
+                  <Grid container spacing={3}>
+                    <Grid item>
+                        <ButtonGroup 
+                            variant="text" 
+                            aria-label="full-width contained button group"
+                            >
+                                <Button 
+                                    startIcon={<ShoppingCartIcon />} 
+                                    classes={{root : classes.groupedText}} 
+                                    >Cart
+                                </Button>
+                            
+                                <Button
+                                    type="button" 
+                                    startIcon={<AccountBoxIcon />} 
+                                    classes={{root : classes.groupedText}}
+                                    {...bindTrigger(popupState)}
+                                    >User
+                                </Button>
+                                <Button 
+                                    startIcon={<LanguageIcon />} 
+                                    classes={{root : classes.groupedText}}
+                                    >ENG
+                                </Button>
+                        </ButtonGroup>
+                    </Grid>
+                </Grid>
                 </Toolbar>
             </Container>
         </AppBar>
