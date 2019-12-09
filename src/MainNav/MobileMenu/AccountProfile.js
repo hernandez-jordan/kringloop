@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { makeStyles, Grid, Button, ButtonGroup, TextField, Link, Popover} from '@material-ui/core';
+import React from 'react';
+import { makeStyles, Button, TextField, Link, Popover} from '@material-ui/core';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import {
     bindPopover,
@@ -10,16 +10,6 @@ const useStyles = makeStyles(theme => ({
         margin: '0 auto !important',
         fontSize: '0.7em', 
     },
-    groupedText: {
-        '&:not(:last-child)': {
-            borderRight: '1px solid #f5f5f573',
-            },
-        '&:hover' : {
-            backgroundColor: '#f5f5f530',
-            borderRadius: '0px',
-        },
-        color : 'white',
-    },
     typography : {
         padding: theme.spacing(2),
     },
@@ -28,29 +18,32 @@ const useStyles = makeStyles(theme => ({
         padding: theme.spacing(1),
       },
     popperMenu : {
-        '&:not(:first-child)' :{
-            // zIndex:1200,
-            // backgroundColor : 'white',
-            boxShadow: '0px 2px 6px #ababab',
-            textAlign: 'center',
-            fontFamily: 'Oswald',
-            fontWeight: '300',
-            color: 'black',
-            '& .MuiInputLabel-outlined': {
-                color : 'black'
-            },
-            '& .MuiTypography-colorPrimary' : {
-                color : 'black',
-                fontSize:'0.7em',
-            },
+        boxShadow: '0px 2px 6px #ababab',
+        textAlign: 'center',
+        fontFamily: 'Oswald',
+        fontWeight: '300',
+        color: 'black',
+        '& .MuiPaper-rounded':{
+            borderRadius: 0,
+        },
+        '& .MuiInputLabel-outlined': {
+            color : 'black'
+        },
+        '& .MuiTypography-colorPrimary' : {
+            color : 'black',
+            fontSize:'0.7em',
         },
     },
     textField : {
+        
         '& .MuiOutlinedInput-notchedOutline':{
             borderColor:'black!important',
             borderRadius: '0px',
             margin: theme.spacing(1),
         },
+        '& .MuiInputBase-input': {
+            width: 200,
+        }
     },
     button:{
         width: '-webkit-fill-available',
@@ -91,7 +84,7 @@ const AccountProfile = props => {
                             <br/>
                             <Button className={classes.button} variant="contained">Sign In</Button> <br/>
                             <Link href="#" onClick={preventDefault}>
-                                <b>Forgot</b> Password or Username?
+                                <b>Forgot</b> Username or Password?
                             </Link>
                             <br/>
                             <br/>

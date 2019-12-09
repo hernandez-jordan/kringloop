@@ -1,10 +1,7 @@
 import React from 'react';
 import { AppBar, Toolbar,Typography, Container, makeStyles, Link, Grid, ButtonGroup, Button} from '@material-ui/core';
 import AccountProfile from '../MainNav/MobileMenu/AccountProfile';
-import {
-  usePopupState,
-  bindTrigger,
-} from 'material-ui-popup-state/hooks'
+import { usePopupState, bindTrigger } from 'material-ui-popup-state/hooks';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import LanguageIcon from '@material-ui/icons/Language';
@@ -34,26 +31,23 @@ const useStyles = makeStyles(theme => ({
   menuButton: {
     marginRight: theme.spacing(2)
   },
-  title: {
-    display: 'block',
-    fontFamily : 'Oswald',
-    underline : 'none',
-    [theme.breakpoints.up('sm')]: {
-      display: 'block',
-    },
+  gridContainer:{
+      width: 'auto',
+      margin : 0,
   },
-  sectionDesktop: {
-    display: 'none',
-    [theme.breakpoints.up('md')]: {
-      display: 'flex',
+  groupedText: {
+    '&:not(:last-child)': {
+        borderRight: '1px solid #f5f5f573',
+        },
+    '&:hover' : {
+        backgroundColor: '#f5f5f530',
+        borderRadius: '0px',
     },
+    color : 'white',
   },
-  sectionMobile: {
-    display: 'flex',
-    [theme.breakpoints.up('md')]: {
-      display: 'none',
-    },
-  },
+  title : {
+    fontFamily: 'Oswald',
+  }
 }));
 
 const MainNavBar = () => {
@@ -65,51 +59,52 @@ const MainNavBar = () => {
   })
 
   return ( 
-    <div className={classes.grow}>
+    <div>
         <AppBar position="static" className={classes.appBarColor}>
             <Container>
-                <Toolbar className={classes.grow}>
-                  
-                  <Typography className={classes.title} 
-                  variant="h6" 
-                  noWrap
+              <Toolbar className={classes.grow}>
+                <Typography className={classes.title} 
+                variant="h6" 
+                noWrap
+                >
+                  <Link href="#"
+                    className={classes.link}
                   >
-                    <Link href="#"
-                      className={classes.link}
-                    >
-                      KRINGLOOP
-                    </Link>
-                  </Typography>
-                  
-                  <AccountProfile popupState={popupState}/>
-                  <Grid container spacing={3}>
-                    <Grid item>
-                        <ButtonGroup 
-                            variant="text" 
-                            aria-label="full-width contained button group"
-                            >
-                                <Button 
-                                    startIcon={<ShoppingCartIcon />} 
-                                    classes={{root : classes.groupedText}} 
-                                    >Cart
-                                </Button>
-                            
-                                <Button
-                                    type="button" 
-                                    startIcon={<AccountBoxIcon />} 
-                                    classes={{root : classes.groupedText}}
-                                    {...bindTrigger(popupState)}
-                                    >User
-                                </Button>
-                                <Button 
-                                    startIcon={<LanguageIcon />} 
-                                    classes={{root : classes.groupedText}}
-                                    >ENG
-                                </Button>
-                        </ButtonGroup>
-                    </Grid>
+                    KRINGLOOP
+                  </Link>
+                </Typography>
+                
+                <AccountProfile popupState={popupState}/>
+                <Grid container spacing={3}
+                  className={classes.gridContainer}
+                >
+                  <Grid item>
+                    <ButtonGroup 
+                      variant="text" 
+                      aria-label="full-width contained button group"
+                      >
+                        <Button 
+                            startIcon={<ShoppingCartIcon />} 
+                            classes={{root : classes.groupedText}} 
+                            >Cart
+                        </Button>
+                    
+                        <Button
+                            type="button" 
+                            startIcon={<AccountBoxIcon />} 
+                            classes={{root : classes.groupedText}}
+                            {...bindTrigger(popupState)}
+                            >User
+                        </Button>
+                        <Button 
+                            startIcon={<LanguageIcon />} 
+                            classes={{root : classes.groupedText}}
+                            >ENG
+                        </Button>
+                    </ButtonGroup>
+                  </Grid>
                 </Grid>
-                </Toolbar>
+              </Toolbar>
             </Container>
         </AppBar>
     </div>
