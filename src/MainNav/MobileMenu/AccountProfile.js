@@ -1,9 +1,7 @@
 import React from 'react';
 import { makeStyles, Button, TextField, Link, Popover} from '@material-ui/core';
+import { bindPopover } from 'material-ui-popup-state/hooks'
 import FacebookIcon from '@material-ui/icons/Facebook';
-import {
-    bindPopover,
-  } from 'material-ui-popup-state/hooks'
 
 const useStyles = makeStyles(theme => ({
     paragraphStyles : {
@@ -65,39 +63,38 @@ const AccountProfile = props => {
     const preventDefault = event => event.preventDefault();
     
     return(
-            <Popover className={classes.popperMenu}
-            {...bindPopover(popupState)} 
-
-                anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'center',
-                    }}
-                    transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'center',
-                    }}
-                >
-                    <h3 >Sign in</h3>
-                    <form className={classes.form} noValidate autoComplete="off">
-                            <TextField className={classes.textField} label="Username" variant="outlined" /> <br/>
-                            <TextField className={classes.textField} label="Password" variant="outlined" type="password" />
-                            <br/>
-                            <Button className={classes.button} variant="contained">Sign In</Button> <br/>
-                            <Link href="#" onClick={preventDefault}>
-                                <b>Forgot</b> Username or Password?
-                            </Link>
-                            <br/>
-                            <br/>
-                            <p className={classes.paragraphStyles}>or <b>sign in</b> with</p>
-                            <Button
-                                variant="contained"
-                                className={classes.button}
-                                startIcon={<FacebookIcon />}
-                            >
-                                Facebook
-                            </Button>
-                    </form>
-            </Popover>
+        <Popover className={classes.popperMenu}
+        {...bindPopover(popupState)} 
+            anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'center',
+                }}
+                transformOrigin={{
+                vertical: 'top',
+                horizontal: 'center',
+                }}
+            >
+                <h3 >Sign in</h3>
+                <form className={classes.form} noValidate autoComplete="off">
+                    <TextField className={classes.textField} label="Username" variant="outlined" /> <br/>
+                    <TextField className={classes.textField} label="Password" variant="outlined" type="password" />
+                    <br/>
+                    <Button className={classes.button} variant="contained">Sign In</Button> <br/>
+                    <Link href="#" onClick={preventDefault}>
+                        <b>Forgot</b> Username or Password?
+                    </Link>
+                    <br/>
+                    <br/>
+                    <p className={classes.paragraphStyles}>or <b>sign in</b> with</p>
+                    <Button
+                        variant="contained"
+                        className={classes.button}
+                        startIcon={<FacebookIcon />}
+                    >
+                        Facebook
+                    </Button>
+                </form>
+        </Popover>
     );
 }
 export default AccountProfile;

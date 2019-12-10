@@ -1,7 +1,7 @@
 import React from 'react';
 import { AppBar, Toolbar,Typography, Container, makeStyles, Link, Grid, ButtonGroup, Button} from '@material-ui/core';
-import AccountProfile from '../MainNav/MobileMenu/AccountProfile';
 import { usePopupState, bindTrigger } from 'material-ui-popup-state/hooks';
+import AccountProfile from '../MainNav/MobileMenu/AccountProfile';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import LanguageIcon from '@material-ui/icons/Language';
