@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Container, makeStyles, InputBase}  from '@material-ui/core';
 import { fade } from '@material-ui/core/styles';
 import BannerDesktop from '../Images/BannerDesktop.jpg';
 import BannerMobile from '../Images/BannerMobile.jpg';
 import SearchIcon from '@material-ui/icons/Search';
+import useWindowWidth from '../WindowWidth/WindowWidth';
 
 const useStyles = makeStyles( theme => ({
     root: {
@@ -18,7 +19,7 @@ const useStyles = makeStyles( theme => ({
         backgroundPosition: 'bottom',
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
-        [theme.breakpoints.down('sm')]: {
+        [theme.breakpoints.down('xs')]: {
             backgroundPosition: 'bottom',
             height: 400,
           },
@@ -32,26 +33,27 @@ const useStyles = makeStyles( theme => ({
         padding: '40px',
         paddingTop: '7em',
         textAlign: 'center',
-        [theme.breakpoints.down('sm')]: {
+        [theme.breakpoints.down('xs')]: {
             paddingTop: '2em',
           },
     },
     
     bannerTitle:{
-        color: 'black',
+        color: 'white',
         fontFamily: 'Oswald',
         fontSize: 'calc(30px + 0.5vw)',
-        [theme.breakpoints.up('sm')]: {
-            color: 'white'
+        [theme.breakpoints.down('xs')]: {
+            color: 'black',
           },
           marginBottom: '0.4em',
     },
     bannerSubTitle:{
         fontFamily: 'Helvetica',
         marginTop: 0,
-        color:'black',
-        [theme.breakpoints.up('sm')]: {
-            color:'white',
+        color:'white',
+        fontSize: 'calc(1em + 0.5vw)',
+        [theme.breakpoints.down('xs')]: {
+            color:'black',
           },
     },
     search: {
@@ -61,10 +63,10 @@ const useStyles = makeStyles( theme => ({
           backgroundColor: fade(theme.palette.common.white, 0.25),
         },
         marginLeft: 0,
-        width: '100%',
-        [theme.breakpoints.up('sm')]: {
+        width: 'auto',
+        [theme.breakpoints.down('xs')]: {
           marginLeft: theme.spacing(1),
-          width: 'auto',
+          width: '80vw',
         },
     },
     searchIcon: {
@@ -76,39 +78,38 @@ const useStyles = makeStyles( theme => ({
         alignItems: 'center',
         justifyContent: 'center',
         color: 'white',
+        [theme.breakpoints.down('xs')]: {
+            color: 'black'
+          },
     },
     inputInput: {
-        padding: theme.spacing(1, 1, 1, 7),
+        textAlign : 'left',
+        padding: theme.spacing(1, 1, 1, 2),
         transition: theme.transitions.create('width'),
         width: '100%',
-        color: 'white',
+        color: 'black',
         height:'2em',
         borderRadius: '0px',
+        '&:focus': {
+            color: 'black',
+        },
         [theme.breakpoints.up('sm')]: {
-            width: 350,
+            color: 'white',
+            padding: theme.spacing(1, 1, 1, 7),
+            width: 300,
             '&:focus': {
-            width: 400,
-            border: '1px solid #fff',
-          },
+                width: 400,
+                border: '1px solid #fff',
+                color: 'white',
+            },
         },
     },
 }));
 
 const HeroBanner = () => {
     const classes = useStyles();
-    const imageUrl = window.innerWidth >= 650 ? BannerDesktop : BannerMobile;
-    const [windowWidth, setWindowWidth ] = useState(window.innerWidth);
 
-    const handleWindowResize = () => {
-        setWindowWidth(window.innerWidth);
-    };
-
-    useEffect(() => {
-        window.addEventListener('resize', handleWindowResize);
-        return () => {
-            window.removeEventListener('resize', handleWindowResize);
-        }
-    });
+    const imageUrl = useWindowWidth() >= 600 ? BannerDesktop : BannerMobile;
 
     return (
         <div className={classes.media} style={{backgroundImage: `url(${imageUrl})` }}>
@@ -120,7 +121,7 @@ const HeroBanner = () => {
                         <SearchIcon />
                     </div>
                     <InputBase
-                        placeholder="Search…"
+                        placeholder="Address, i.e Amsterdamplein"
                         classes={{
                         root: classes.inputRoot,
                         input: classes.inputInput,
@@ -132,5 +133,6 @@ const HeroBanner = () => {
         </div>
     );
 }
+
 
 export default HeroBanner;

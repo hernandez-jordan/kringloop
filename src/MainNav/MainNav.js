@@ -1,10 +1,11 @@
 import React from 'react';
-import { AppBar, Toolbar,Typography, Container, makeStyles, Link, Grid, ButtonGroup, Button} from '@material-ui/core';
+import { AppBar, Toolbar,Typography, Container, makeStyles, Link, Grid, ButtonGroup, Button, IconButton} from '@material-ui/core';
 import { usePopupState, bindTrigger } from 'material-ui-popup-state/hooks';
 import AccountProfile from '../MainNav/MobileMenu/AccountProfile';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import LanguageIcon from '@material-ui/icons/Language';
+import MoreIcon from '@material-ui/icons/MoreVert';
 
 const useStyles = makeStyles(theme => ({
   paperRoot: {
@@ -15,11 +16,11 @@ const useStyles = makeStyles(theme => ({
   iconButton :{
     borderRadius : 0
   },
-  link: {
+  logo: {
     color: 'white',
     '&:hover' : {
       textDecoration: 'none',
-    }
+    },
   },
   grow: {
     display: 'flex',
@@ -47,7 +48,21 @@ const useStyles = makeStyles(theme => ({
   },
   title : {
     fontFamily: 'Oswald',
-  }
+  },
+  sectionDesktop: {
+    width: 'auto',
+    margin : 0,
+    [theme.breakpoints.down('xs')]: {
+      display: 'none', 
+    },
+  },
+  sectionMobile: {
+    display: 'none',
+    [theme.breakpoints.down('xs')]: {
+      display: 'flex',
+    },
+  },
+
 }));
 
 const MainNavBar = () => {
@@ -57,6 +72,8 @@ const MainNavBar = () => {
     variant: 'popover',
     popupId: 'userPopover',
   })
+
+  const mobileMenuId = 'primary-account-menu-mobile';
 
   return ( 
     <div>
@@ -68,7 +85,7 @@ const MainNavBar = () => {
                 noWrap
                 >
                   <Link href="#"
-                    className={classes.link}
+                    className={classes.logo}
                   >
                     KRINGLOOP
                   </Link>
@@ -76,7 +93,7 @@ const MainNavBar = () => {
                 
                 <AccountProfile popupState={popupState}/>
                 <Grid container spacing={3}
-                  className={classes.gridContainer}
+                  className={classes.sectionDesktop}
                 >
                   <Grid item>
                     <ButtonGroup 
@@ -88,7 +105,6 @@ const MainNavBar = () => {
                             classes={{root : classes.groupedText}} 
                             >Cart
                         </Button>
-                    
                         <Button
                             type="button" 
                             startIcon={<AccountBoxIcon />} 
@@ -104,6 +120,17 @@ const MainNavBar = () => {
                     </ButtonGroup>
                   </Grid>
                 </Grid>
+                <div className={classes.sectionMobile}>
+                  <IconButton
+                    aria-label="show more"
+                    aria-controls={mobileMenuId}
+                    aria-haspopup="true"
+                    
+                    color="inherit"
+                  >
+                    <MoreIcon />
+                  </IconButton>
+                </div>
               </Toolbar>
             </Container>
         </AppBar>
