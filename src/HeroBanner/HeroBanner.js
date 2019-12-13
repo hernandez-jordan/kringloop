@@ -4,7 +4,7 @@ import { fade } from '@material-ui/core/styles';
 import BannerDesktop from '../Images/BannerDesktop.jpg';
 import BannerMobile from '../Images/BannerMobile.jpg';
 import SearchIcon from '@material-ui/icons/Search';
-import useWindowWidth from '../WindowWidth/WindowWidth';
+import useWindowWidth from '../utils/hooks/WindowWidth';
 
 const useStyles = makeStyles( theme => ({
     root: {
@@ -13,7 +13,7 @@ const useStyles = makeStyles( theme => ({
     inputRoot: {
         color: 'inherit',
     },
-    media : {
+    heroImage : {
         height: '600px',
         boxShadow: 'inset 0 0 0 100vw rgba(0,0,0,0.2)',
         backgroundPosition: 'bottom',
@@ -112,7 +112,7 @@ const HeroBanner = () => {
     const imageUrl = useWindowWidth() >= 600 ? BannerDesktop : BannerMobile;
 
     return (
-        <div className={classes.media} style={{backgroundImage: `url(${imageUrl})` }}>
+        <div className={classes.heroImage} style={{backgroundImage: `url(${imageUrl})` }}>
             <Container className={classes.wrapper}>
                 <h2 className={classes.bannerTitle}>An endless supply of Second Chances</h2>
                 <p className={classes.bannerSubTitle}>Find stores in your Area</p>
